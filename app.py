@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
+import os
 
 app = Flask(__name__)
 
-DATABASE = "todo.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "todo.db")
 
 
 def get_db_connection():
@@ -25,6 +27,10 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+
+# Initialize database when application starts
+init_db()
 
 
 @app.route("/")
@@ -80,5 +86,4 @@ def delete_todo(todo_id):
 
 
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
