@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Todo App</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>My Todo App</h1>
+
+        <form action="/add" method="POST">
+
+            <input type="text" name="title" placeholder="Enter a todo" required>
+
+            <button type="submit">
+                Add Todo
+            </button>
+
+        </form>
+
+        <h2>Todos</h2>
+
+        <ul>
+
+            {% for todo in todos %}
+
+            <li>
+
+                <span>
+                    {{ todo["title"] }}
+                </span>
+
+                <form action="/delete/{{ todo['id'] }}" method="POST">
+
+                    <button type="submit">
+                        Delete
+                    </button>
+
+                </form>
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</body>
+
+</html>
